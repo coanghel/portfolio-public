@@ -1,0 +1,96 @@
+body {
+  background-color: #f0f0f0; /* Light grey background */
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+  color: #4d4d4d;
+  text-align: center;
+}
+
+/* Styling for the search box */
+.search {
+  width: 100%;
+}
+
+input[type='text'] {
+  background-color: #d3d9d9;
+  color: #3a4141;
+}
+
+/* Styling for the placeholder text */
+.search::placeholder {
+  color: #3a4141; /* Lighter text color for the placeholder */
+}
+
+/* Styling for the search box when it is selected (focused) */
+.search:focus {
+  background-color: #eeeeee; /* Slightly darker background when focused */
+  color: #000000; /* Darker text color for better contrast when focused */
+  border-color: #666666; /* Darker border color when the box is focused */
+  outline: none; /* Remove default outline to use custom border color */
+}
+
+/* Styling for the placeholder text when the search box is selected (focused) */
+.search:focus::placeholder {
+  color: #999999; /* Darker placeholder text color when the box is focused */
+}
+
+.fa-search {
+  float: right;
+  margin-right: 10px;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  line-height: 1;
+}
+
+.gradeHeader {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  line-height: 1;
+  text-decoration: underline;
+}
+
+/* Base styles */
+.route,
+p {
+  text-align: center;
+  padding: 10px;
+  margin: 0;
+}
+
+/* Desktop specific styles */
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 4em;
+  }
+  .gradeHeader {
+    font-size: 2.5em;
+  }
+  .route-name {
+    font-size: 2em; /* Route name font size on desktop */
+  }
+  .fa-year {
+    font-size: 1.5em; /* FA/Year font size on desktop */
+  }
+}
+
+/* Mobile specific styles */
+@media screen and (max-width: 767px) {
+  .title {
+    font-size: 3em;
+  }
+  .gradeHeader {
+    font-size: 2em;
+  }
+  .route-name {
+    font-size: 1.5em; /* Adjust the denominator for the route name */
+  }
+  .fa-year {
+    font-size: 1.2em; /* Adjust the denominator for FA/Year to maintain 0.75:1 ratio */
+  }
+}

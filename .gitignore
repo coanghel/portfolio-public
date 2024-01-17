@@ -1,0 +1,7 @@
+node_modules
+/.vs
+/frontend/src/setupProxy.js
+*.env
+/backend/db.txt
+backend/src/token.json
+backend/src/credentials.json

@@ -1,0 +1,65 @@
+services:
+  backend:
+    build:
+      args:
+        - NODE_ENV=production
+      context: backend
+    command: npm run start
+    restart: unless-stopped
+    env_file:
+      - /backend/.env
+    environment:
+      - DATABASE_DB=${DATABASE_DB}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=db
+      - NODE_ENV=production
+    volumes:
+      - ./backend/src:/code/src
+      - ./backend/package.json:/code/package.json
+      - ./build:/code/src/build
+      - ./backend/package-lock.json:/code/package-lock.json
+      - back-notused:/opt/app/node_modules
+    networks:
+      - public
+      - private
+    depends_on:
+      - db
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: unless-stopped
+    env_file:
+      - /backend/.env
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - private
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_DATABASE=${DATABASE_DB}
+      - MYSQL_ROOT_PASSWORD_FILE=${DATABASE_PASSWORD}
+  frontend:
+    build:
+      context: frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend/src:/code/src
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf
+      - /code/node_modules
+      - ./frontend/package.json:/code/package.json
+      - ./frontend/package-lock.json:/code/package-lock.json
+    networks:
+      - public
+    depends_on:
+      - backend
+networks:
+  public:
+  private:
+volumes:
+  back-notused:
+  db-data:
